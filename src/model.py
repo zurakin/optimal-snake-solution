@@ -36,6 +36,8 @@ class Model:
         return len(self.snake_body) + 1, game_over
 
     def queue_direction(self, direction):
+        if self.direction_queue[0] == direction or self.direction_queue[0] == (-direction[0], -direction[1]):
+            return
         self.direction_queue.insert(0, direction)
 
     def __get_position(self, position, direction):
