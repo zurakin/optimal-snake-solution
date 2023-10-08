@@ -13,6 +13,9 @@ class Model:
         self.apple_position = (0, 0)
         self.spawn_apple()
 
+    def get_direction_queue(self):
+        return self.direction_queue
+
     def spawn_apple(self):
         self.apple_position = random.randint(0, self.height - 1), random.randint(0, self.width - 1)
         while self.apple_position in self.snake_body or self.apple_position == self.snake_head:

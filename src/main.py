@@ -1,4 +1,3 @@
-from src.view import View
 from src.view_pygame import ViewPyGame
 
 
