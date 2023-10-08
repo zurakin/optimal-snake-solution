@@ -1,5 +1,3 @@
-from threading import Thread
-
 import cv2
 import numpy as np
 import time
@@ -52,7 +50,6 @@ class View:
                     color = (255, 255, 255)
                 self.display_tile(j, i, im_array, color)
         cv2.imshow(self.WINDOW_NAME, im_array)
-
     def game_loop(self):
         current_time = time.time()
         while True:
@@ -79,7 +76,7 @@ class View:
 
     def update_speed(self, snake_length):
         if snake_length < 10:
-            pass
+            self.delay_between_moves = .2
         elif snake_length < 20:
             self.delay_between_moves = .15
         elif snake_length < 30:
@@ -87,5 +84,5 @@ class View:
         elif snake_length < 20:
             self.delay_between_moves = .05
         else:
-            self.delay_between_moves = .02
+            self.delay_between_moves = .03
 
