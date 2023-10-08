@@ -1,8 +1,9 @@
 from src.view import View
+from src.view_pygame import ViewPyGame
 
 
 def main():
-    view = View()
+    view = ViewPyGame()
     view.game_loop()
 
 
