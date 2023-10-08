@@ -9,7 +9,8 @@ class Model:
         self.height = height
         self.snake_head = (height // 2, width // 2)
         self.snake_body = [self.__get_position(self.snake_head, (0, 1))]
-        self.direction_queue = [(0, -1)]
+        self.direction_queue = []
+        self.current_direction = (0, -1)
         self.apple_position = (0, 0)
         self.spawn_apple()
 
@@ -23,10 +24,11 @@ class Model:
 
     def move(self):
         self.snake_body.insert(0, self.snake_head)
-        if len(self.direction_queue) > 1:
+        if len(self.direction_queue) > 0:
             direction = self.direction_queue.pop()
+            self.current_direction = direction
         else:
-            direction = self.direction_queue[0]
+            direction = self.current_direction
         self.snake_head = self.__get_position(self.snake_head, direction)
         if self.snake_head is None:
             game_over = True
@@ -39,8 +41,11 @@ class Model:
         return len(self.snake_body) + 1, game_over
 
     def queue_direction(self, direction):
-        if self.direction_queue[0] == direction or self.direction_queue[0] == (-direction[0], -direction[1]):
+        if len(self.direction_queue) > 0 and (self.direction_queue[0] == direction or self.direction_queue[0] == (-direction[0], -direction[1])):
             return
+        if len(self.direction_queue) == 0 and (self.current_direction == direction or self.current_direction == (-direction[0], -direction[1])):
+            return
+
         self.direction_queue.insert(0, direction)
 
     def __get_position(self, position, direction):
@@ -59,3 +64,6 @@ class Model:
 
     def get_apple_position(self):
         return self.apple_position
+
+    def get_current_direction(self):
+        return self.current_direction

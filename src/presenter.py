@@ -1,3 +1,4 @@
+from src.bots.naive_bot import NaiveBot
 from src.model import Model
 
 
@@ -8,10 +9,18 @@ class Presenter:
         self.height = height
         self.width = width
         self.game_over = False
+        self.use_bot = True
+        self.bot = NaiveBot(width, height)
 
     def move(self):
         if self.game_over:
             return
+
+        if self.use_bot:
+            next_move = self.bot.get_next_move(self.model.get_snake_head(), self.model.get_snake_body(),
+                                               self.model.get_apple_position(),
+                                               self.model.get_current_direction())
+            self.model.queue_direction(next_move)
         snake_length, game_over = self.model.move()
         self.game_over = game_over
         self.view.update_speed(snake_length)

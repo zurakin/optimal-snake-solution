@@ -11,8 +11,9 @@ class Tests(unittest.TestCase):
     def test_model_queue(self):
         directions = [self.UP, self.RIGHT, self.DOWN, self.LEFT]
         model = Model(30, 30)
+        initial_direction = directions[(directions.index(model.current_direction)+1)%4]
+        model.queue_direction(initial_direction)
         self.assertEqual(len(model.get_direction_queue()), 1)
-        initial_direction = model.get_direction_queue()[0]
         model.queue_direction(initial_direction)
         model.queue_direction(initial_direction)
         self.assertEqual(len(model.get_direction_queue()), 1)
